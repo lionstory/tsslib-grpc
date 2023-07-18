@@ -1,13 +1,13 @@
 # Configuration
 ```shell
-router:     #终端路由配置
+router:     # TSS server ports 
   - ':8000'
   - ':8001'
   - ':8002'
-savepath: "keygen_data.json" #保存分片文件地址（目前还未使用该配置，三方共同一个目录）
+savepath: "keygen_data.json" # share save path（all parties use the same path. Not used yet.）
 
-partyNum: 3  #party数量
-threshold: 1 # 门限阈值
+partyNum: 3  #party number
+threshold: 1 # threshold
 ```
 
 # Start service
