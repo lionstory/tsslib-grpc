@@ -1,0 +1,20 @@
+# config
+export ANDROID_HOME=/opt/android-sdk/cmdline-tools
+export ANDROID_NDK_HOME=/opt/android-ndk/r23c
+export TOOL=/opt/android-ndk/r23c
+
+android: depend
+	mv vendor vendor_bak
+	gomobile bind -androidapi=23 -v -x ./mobile
+	mv vendor_bak vendor
+
+ios: depend
+	gomobile bind -target=ios -v -x ./mobile
+
+depend:
+	gomobile init
+	go get golang.org/x/mobile/bind
+
+clean:
+	rm -rvf libdevice.*
+	rm -rvf Mobile.xcframework

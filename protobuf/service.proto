@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "pkg/proto/;pb";
+
+import "google/protobuf/empty.proto";
+
+message CommonResonse{
+  string Code = 1;
+  string Msg = 2;
+}
+
+message KeyGenPrepareRequest{
+  repeated string Urls = 1;
+  int32 PartyNum = 2;
+  int32 Threshold = 3;
+}
+
+message KeyGenStartRequest{
+  bytes Party = 1;
+  bytes Parties = 2;
+  int32 Threshold = 3;
+}
+
+message TransMsgRequest{
+  bytes Message = 1;
+  bytes Party = 2;
+  bool IsBroadcast = 3;
+}
+
+message SignPrepareRequest{
+  string Message = 1;
+  repeated string Urls = 2;
+}
+
+message SignCollectRequest{
+  int32 Index = 1;
+}
+
+message SignCollectResponse{
+  string Code = 1;
+  string Msg = 2;
+  bytes Data = 3;
+}
+
+message SignStartRequest{
+  int32 Index = 1;
+  bytes Parties = 2;
+  bytes Table = 3;
+  string Msg = 4;
+}
+
+message ReSharingPrepareRequest{
+  repeated string Urls = 1;
+  int32 Threshold = 3;
+  int32 OldThreshold = 4;
+}
+
+message ReSharingStartRequest{
+  bytes Party = 1;
+  bytes Parties = 2;
+  int32 Threshold = 3;
+  int32 KeyRevision = 4;
+  bytes OldParty = 5;
+  bytes OldParties = 6;
+  int32 OldThreshold = 7;
+  int32 OldKeyRevision = 8;
+}
+
+message TransSmtMsgRequest{
+  bytes FromId = 1;
+  bytes ToId = 2;
+  string Content = 3;
+  string TaskName = 4;
+}
+
+message SmtResharePrepareRequest{
+  repeated string Urls = 1;
+  int32  NewThreshold = 2;
+  int32  OldThreshold = 3;
+}
+
+message SmtReshareStartRequest{
+  bytes Party = 1;
+  bytes OldParties = 2;
+  bytes NewParties = 3;
+  int32 OldThreshold = 4;
+  int32 NewThreshold = 5;
+  int32 KeyRevision = 6;
+  bytes Table = 7;
+}
+
+service TssServer{
+  rpc KeyGenPrepare(KeyGenPrepareRequest) returns (CommonResonse);
+  rpc KeyGenStart(KeyGenStartRequest) returns (CommonResonse);
+  rpc KeygenTransMsg(TransMsgRequest) returns (CommonResonse);
+  rpc SignPrepare(SignPrepareRequest) returns (CommonResonse);
+  rpc SignCollectParty(SignCollectRequest) returns (SignCollectResponse);
+  rpc SignStart(SignStartRequest) returns (CommonResonse);
+  rpc SignTransMsg(TransMsgRequest) returns (CommonResonse);
+  rpc ReSharingPrepare(ReSharingPrepareRequest) returns (CommonResonse);
+  rpc ReSharingInit(ReSharingStartRequest) returns (CommonResonse);
+  rpc ReSharingStart(google.protobuf.Empty) returns (CommonResonse);
+  rpc ReSharingTransMsgToOld(TransMsgRequest) returns (CommonResonse);
+  rpc ReSharingTransMsgToNew(TransMsgRequest) returns (CommonResonse);
+  rpc SmtKeyGenPrepare(KeyGenPrepareRequest) returns (CommonResonse);
+  rpc SmtKeyGenStart(KeyGenStartRequest) returns (CommonResonse);
+  rpc SmtKeygenTransMsg(TransSmtMsgRequest) returns (CommonResonse);
+  rpc SmtSignPrepare(SignPrepareRequest) returns (CommonResonse);
+  rpc SmtSignCollectParty(SignCollectRequest) returns (SignCollectResponse);
+  rpc SmtSignStart(SignStartRequest) returns (CommonResonse);
+  rpc SmtSignTransMsg(TransSmtMsgRequest) returns (CommonResonse);
+  rpc SmtResharePrepare(SmtResharePrepareRequest) returns(CommonResonse);
+  rpc SmtReshareStart(SmtReshareStartRequest) returns(CommonResonse);
+  rpc SmtReshareTransMsg(TransSmtMsgRequest) returns (CommonResonse);
+}

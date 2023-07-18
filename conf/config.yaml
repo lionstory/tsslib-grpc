@@ -1,0 +1,8 @@
+router:
+  - ':8000'
+  - ':8001'
+  - ':8002'
+savepath: "keygen_data.json"
+
+partyNum: 3
+threshold: 1
