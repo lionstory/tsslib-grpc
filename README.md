@@ -1,4 +1,4 @@
-# 配置文件
+# Configuration
 ```shell
 router:     #终端路由配置
   - ':8000'
@@ -10,7 +10,7 @@ partyNum: 3  #party数量
 threshold: 1 # 门限阈值
 ```
 
-# 启动服务
+# Start service
 ```shell
 go mod tidy
 ```
@@ -19,13 +19,13 @@ go run cmd/main.go -p 8000 -c conf/config.yaml
 go run cmd/main.go -p 8001 -c conf/config.yaml
 go run cmd/main.go -p 8002 -c conf/config.yaml
 ```
-# 测试
-## 触发keygen
+# Test
+## Trigger keygen
 ```shell
 go run client/keygen.go
 ```
 
-## 触发signing
+## Trigger signing
 ```shell
 go run client/signing.go
 ```
